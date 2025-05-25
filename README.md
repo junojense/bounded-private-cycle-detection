@@ -11,7 +11,7 @@ To start, we drop every column besides the source and target accounts.
 We then factorise the account values in the dataset to integers instead of hexadecimal account numbers.
 After this, we filter the graph to remove duplicate edges and self-loops.
 
-[^1]: J. Jense, *Interactive Structuring and Vectorization of Sketch Imagery*, M.Sc. thesis, Faculty of Electrical Engineering, Mathematics and Computer Science, Delft University of Technology, Delft, Netherlands, 2024. [Online](https://resolver.tudelft.nl/uuid:a559439a-d5ee-4f1f-9823-2bab3905c0c9)
+[^1]: J. Jense, *Finding Bounded-Length Cycles in Decentralised Networks under Privacy Constraints*, M.Sc. thesis, Faculty of Electrical Engineering, Mathematics and Computer Science, Delft University of Technology, Delft, Netherlands, 2024. [Online](https://resolver.tudelft.nl/uuid:a559439a-d5ee-4f1f-9823-2bab3905c0c9)
 
 [^2]: R. Albert and A.-L. Barabási, "Statistical mechanics of complex networks," *Reviews of Modern Physics*, vol. 74, no. 1, pp. 47–97, 2002. doi: [10.1103/RevModPhys.74.47](https://doi.org/10.1103/RevModPhys.74.47)
 
