@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <deque>
+#include <filesystem>
 #include <vector>
 #include <fstream>
 #include <unordered_set>
@@ -49,8 +50,11 @@ vector<vector<int>> read_file(int max_neighbours, int max_size)
 // Output writer
 void write_file(const string& s, long hash, group G)
 {
-    string h_path = "/output/-" + to_string(hash);
-    string params = "group [p=" + to_string(G.p) + ",q=" + to_string(G.q) + ",r=" + to_string(G.r) + ",h=" + to_string(G.h) + ",g=" + to_string(G.g) + "].log";
+    filesystem::create_directory("out/");
+    filesystem::create_directory("out/log/");
+
+    string h_path = "out/log/" + to_string(hash) + " ";
+    string params = "[p=" + to_string(G.p) + ",q=" + to_string(G.q) + ",r=" + to_string(G.r) + ",h=" + to_string(G.h) + ",g=" + to_string(G.g) + "].log";
     ofstream file(h_path + params, ofstream::app);
     file << s;
     file.close();
