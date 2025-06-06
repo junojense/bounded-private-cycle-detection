@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -6,15 +9,24 @@ import seaborn as sns
 def plot_and_export(ax, filename_prefix):
     # Export to SVG and EPS formats
     for ext in ['svg', 'eps']:
-        ax.figure.savefig(f"{filename_prefix}.{ext}", format=ext)
+        ax.figure.savefig(fig_dir / f'{filename_prefix}.{ext}', format=ext)
     plt.close(ax.figure)
 
 
+# Configure output directory
+fig_dir = Path('../out/fig/')
+fig_dir.mkdir(parents=True, exist_ok=True)
+
 # Load data
-logfile = 'filename.log'
-if logfile is 'filename.log':
-    print("Please set the logfile variable to a valid .log file")
-    exit(1);
+if len(sys.argv) > 1:
+    logfile = sys.argv[1]
+else:
+    logfile = 'filename.log'  # Configure your desired log file here, or pass it one the command line
+
+if logfile == 'filename.log':
+    print('Please set the logfile variable to a valid .log file')
+    exit(1)
+
 df = pd.read_csv(logfile)
 
 # Calculate additional columns

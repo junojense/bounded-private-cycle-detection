@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <deque>
+#include <filesystem>
 #include <vector>
 #include <fstream>
 #include <unordered_set>
@@ -25,32 +26,14 @@ vector<message> send(vector<node*> &nodes, const message& msg) {
     }
 }
 
-// Reads out a file that has lines with two comma-separated integers (u,v)
-vector<vector<int>> read_file(int max_neighbours, int max_size)
-{
-    ifstream file("transaction_data.csv");
-    string line;
-    vector<vector<int>> graph;
-
-    while (getline(file, line))
-    {
-        uint64_t slash_index = line.find(',');
-        int source = stoi(line.substr(0, slash_index));
-        int target = stoi(line.substr(slash_index + 1, line.length()));
-        if(source > max_size || target > max_size) continue;
-        if(source == (int) graph.size()) graph.emplace_back();
-        if((int) graph.at(source).size() < max_neighbours) graph.at(source).emplace_back(target);
-        if(target == (int) graph.size()) graph.emplace_back();
-    }
-    file.close();
-    return graph;
-}
-
 // Output writer
 void write_file(const string& s, long hash, group G)
 {
-    string h_path = "/output/-" + to_string(hash);
-    string params = "group [p=" + to_string(G.p) + ",q=" + to_string(G.q) + ",r=" + to_string(G.r) + ",h=" + to_string(G.h) + ",g=" + to_string(G.g) + "].log";
+    filesystem::create_directory("out/");
+    filesystem::create_directory("out/log/");
+
+    string h_path = "out/log/" + to_string(hash) + " ";
+    string params = "[p=" + to_string(G.p) + ",q=" + to_string(G.q) + ",r=" + to_string(G.r) + ",h=" + to_string(G.h) + ",g=" + to_string(G.g) + "].log";
     ofstream file(h_path + params, ofstream::app);
     file << s;
     file.close();
@@ -135,15 +118,6 @@ int main(){
     cout << "group [p=" << G.p << ", q=" << G.q << ", r=" << G.r << ", h=" << G.h << ", g=" << G.g << "]\ngraph size [" << n_lower;
     cout << ',' << n_upper << "] with l [" << l_lower << ',' << l_upper << "] and degree [" << d_lower << ',' << d_upper << "]\n\n";
     cout << "=============================================================STATS=============================================================\n";
-
-    // To use the data in transaction_data.csv
-    // {
-    //     vector<vector<int>> graph = read_file(1, 1);
-    //     vector<node*> nodes;
-    //     generate_nodes(graph, nodes, G);
-    //     for(int k = l_lower; k <= l_upper; ++k)
-    //         run((int) graph.size(), nodes, k, -1, average_degree(graph));
-    // }
 
     auto clock = chrono::high_resolution_clock::now();
     auto hash = duration_cast<chrono::milliseconds>(clock.time_since_epoch()).count();
