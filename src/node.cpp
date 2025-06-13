@@ -88,7 +88,7 @@ vector<message> node::publish(const message& msg)
 
 void node::broadcast(const message& msg) {
     return;
-    auto path = msg.path;
-    for(size_t i = 0; i < path.size() - 1; ++i)
-        topology.emplace_back(path[i], path[(i + 1) % path.size()]);
+    // auto path = msg.path;
+    // for(size_t i = 0; i < path.size() - 1; ++i)
+        // topology.emplace_back(path[i], path[(i + 1) % path.size()]);
 }
