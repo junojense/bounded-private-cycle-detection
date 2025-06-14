@@ -1,0 +1,17 @@
+[project]
+name = "bounded-private-cycle-detection"
+version = "1.0.0"
+
+dependencies = [
+    "matplotlib>=3.10.3",
+    "pandas>=2.2.3",
+    "seaborn>=0.13.2",
+]
+requires-python = ">=3.10"
+
+authors = [{name = "Juno Jense"}, {name = "Florine W. Dekker"}]
+description = "Source code underlying the publication 'Privacy-Preserving Peer-to-Peer Cycle Detection'."
+readme = "README.md"
+
+[tool.setuptools]
+package-dir = {"bounded-private-cycle-detection" = ""}
